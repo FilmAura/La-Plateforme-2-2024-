@@ -38,6 +38,44 @@
         header img:hover {
             transform: scale(1.1);
         }
+        .home-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #61dafb;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .home-button:hover {
+            background-color: #21a1f1;
+        }
+        .home-button img {
+            width: 20px;
+            height: 20px;
+        }
+        .share-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .share-button:hover {
+            background-color: #45a049;
+        }
+        .share-button img {
+            width: 20px;
+            height: 20px;
+        }
         .site-name {
             color: #61dafb;
             font-size: 24px;
@@ -174,14 +212,54 @@
                 return false;
             }
         }
+
+        function changeVideo(code) {
+            document.getElementById('movieFrame').innerHTML = code + '<button class="fullscreen-button" onclick="toggleFullscreen()">Plein écran</button>';
+        }
+
+        function toggleFullscreen() {
+            const iframe = document.querySelector('#movieFrame iframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) { // Firefox
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // IE/Edge
+                iframe.msRequestFullscreen();
+            }
+        }
+
+        function shareLink() {
+            const shareUrl = 'https://filmaura.github.io/La-Plateforme-2-2024-/';
+            if (navigator.share) {
+                navigator.share({
+                    title: 'FilmAura - La Plateforme 2 (2024)',
+                    url: shareUrl
+                }).then(() => {
+                    console.log('Link shared successfully');
+                }).catch((error) => {
+                    console.error('Error sharing link:', error);
+                });
+            } else {
+                // Fallback for browsers that do not support the Web Share API
+                prompt('Copy this link to share:', shareUrl);
+            }
+        }
     </script>
 </head>
 <body>
-    <header>
+       <header>
+        <button class="home-button" onclick="window.location.href='TON_LIEN_ICI'">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Home">
+        </button>
+        <button class="share-button" onclick="shareLink()">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/share.png" alt="Share">
+        </button>
         <img src="https://i.imgur.com/JHJ82d0.png" alt="Logo du site">
     </header>
     <main>
-        <img class="movie-poster" src=https://image.tmdb.org/t/p/original/tMjGF20cDbhla6f7IO8OduniPUX.jpg" alt="Affiche du film">
+        <img class="movie-poster" src="https://image.tmdb.org/t/p/original/tMjGF20cDbhla6f7IO8OduniPUX.jpg" alt="Affiche du film">
         <h1>La Plateforme 2 (2024)</h1>
         <div class="movie-info">
             <p><strong>Genre:</strong>  Films, Epouvante-horreur</p>
@@ -211,24 +289,5 @@
     <footer>
         By <a href="https://www.tiktok.com/@shadow_ff18?_t=8qI7TXBn2ga&_r=1">SHADOW</a>
     </footer>
-
-    <script>
-        function changeVideo(code) {
-            document.getElementById('movieFrame').innerHTML = code + '<button class="fullscreen-button" onclick="toggleFullscreen()">Plein écran</button>';
-        }
-
-                function toggleFullscreen() {
-            const iframe = document.querySelector('#movieFrame iframe');
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.mozRequestFullScreen) { // Firefox
-                iframe.mozRequestFullScreen();
-            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) { // IE/Edge
-                iframe.msRequestFullscreen();
-            }
-        }
-    </script>
 </body>
 </html>
